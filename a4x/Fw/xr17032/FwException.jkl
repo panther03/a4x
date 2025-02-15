@@ -88,7 +88,7 @@ FwxExceptionVector:
 
 ]
 
-PUBLIC FwBusErrorCallback : FwBusErrorF
+PUBLIC FwBusErrorCallback : FwBusErrorF = NULLPTR
 
 #DEFINE XR17032_RS_ECAUSE_SHIFT 28
 #DEFINE XR17032_RS_ECAUSE_MASK 0xF

@@ -541,7 +541,7 @@ FN FwBootPicker ()
 
     // Draw the firmware background.
 
-    FwDrawBackground ()
+    //FwDrawBackground ()
 
     // Figure out rows and columns of the boot picker such that there are 4
     // bootable devices on each row.
@@ -570,7 +570,7 @@ FN FwBootPicker ()
         "Use left and right arrow keys to select a
 bootable partition. Strike enter to boot.
 Strike ESC to enter the command monitor.", // string
-        0x00, // color
+        0xFF, // color
         FwBootPickerY - 68, // y
     )
 
@@ -588,7 +588,7 @@ Strike ESC to enter the command monitor.", // string
     END
 
     WHILE TRUE DO
-        scan := FwKeyboardReadScancode ()
+        scan := 53 // FwKeyboardReadScancode ()
 
         IF scan == -1 THEN
             CONTINUE
@@ -656,11 +656,11 @@ FN FwInitializeGui ()
         LEAVE
     END
 
-    IF NOT FwDeviceDatabase.Keyboard.Id THEN
-        RtlPrint ( "%s No keyboard attached\n", "GUI unavailable:" )
-
-        LEAVE
-    END
+    //IF NOT FwDeviceDatabase.Keyboard.Id THEN
+    //    RtlPrint ( "%s No keyboard attached\n", "GUI unavailable:" )
+//
+    //    LEAVE
+    //END
 
     // Initialize some "cached" parameters.
 
@@ -717,7 +717,7 @@ FN FwInitializeVideoConsole ()
     FwVideoConsoleY = y
 
     FwCurrentCioOutputBlock = &FwVideoConsoleCioBlock
-    FwCurrentCioInputBlock = &FwKeyboardCioBlock
+    //FwCurrentCioInputBlock = &FwKeyboardCioBlock
 END
 
 FN FwVideoConsoleScroll ()

@@ -108,8 +108,8 @@ FN FwProbeRamSlot (
             BREAK
         END
 
-        size += 4096
-        base += 4096
+        size += 4096 * 128 
+        base += 4096 * 128
     END
 
     FwBusErrorCallback = NULLPTR
@@ -193,8 +193,16 @@ FN FwProbeEbus ()
 
     i := 0
 
+    FwBusErrorCallback = &FwProbeBusError
+
     WHILE i < 7 DO
-        IF slotinfo^.Magic == IO_EBUS_MAGIC THEN
+        FwProbeCheck = 1
+
+        magic := slotinfo^.Magic
+        BARRIER
+        FwxMemoryBarrier()
+
+        IF FwProbeCheck AND magic == IO_EBUS_MAGIC THEN
             FwDeviceDatabase.Boards[i].Address = slotinfo
 
             FwDeviceDatabase.Boards[i].BoardId = slotinfo^.BoardId
@@ -212,6 +220,8 @@ FN FwProbeEbus ()
         i += 1
         slotinfo += IO_EBUS_SLOT_SPACE
     END
+
+    FwBusErrorCallback = NULLPTR
 END
 
 EXTERN FN FwProbeDks ()
